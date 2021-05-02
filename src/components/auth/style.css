@@ -1,0 +1,106 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap");
+
+/* Main Log Container */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+}
+.mainlog_cont {
+  display: grid;
+  grid-template-columns: auto 550px;
+  grid-template-rows: 100vh;
+}
+.mainlog_pic {
+  background: url(../../pictures/landing_image.jpg) no-repeat center
+    center/cover;
+  height: 100vh;
+}
+.mainlog_log {
+  background-color: black;
+  padding: 12px;
+}
+
+/* Main Inputs and Form */
+.inp_cont {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  position: relative;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Form */
+.mailog_form {
+  display: flex;
+}
+.error {
+  color: rgb(230, 92, 92);
+  margin-left: 4px;
+  margin-top: 2px;
+}
+.form_inputcont {
+  display: flex;
+  flex-direction: column;
+  font-size: 13px;
+}
+
+/* Inputs */
+
+.mailog_inp {
+  margin-right: 5px;
+  background-color: black;
+  border: none;
+  border: 1px solid rgb(94, 92, 92);
+  border-radius: 4px;
+  padding: 12px;
+  color: white;
+  font-size: 1rem;
+  font-weight: 500;
+  width: 200px;
+}
+.mailog_inp:focus {
+  animation-name: inp-animate;
+  animation-duration: 0.5s;
+  animation-timing-function: ease;
+  animation-fill-mode: forwards;
+}
+
+@keyframes inp-animate {
+  from {
+    width: 200px;
+  }
+  to {
+    width: 220px;
+  }
+}
+
+/* Advertise */
+.mainlog_adverstise {
+  margin-left: 22px;
+  margin-top: 30px;
+}
+.mainlog_logo {
+  width: 150px;
+}
+.mainlog_h1 {
+  color: #e79f4b;
+  font-size: 2.8rem;
+}
+.mainlog_h2 {
+  color: #e79f4b;
+}
+.mainlog_adv {
+  margin-bottom: 30px;
+}
+
+/* Button Container */
+.button_cont {
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+  margin-left: 22px;
+}
