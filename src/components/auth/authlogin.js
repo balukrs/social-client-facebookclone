@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./style.css";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Logo from "../../pictures/motivation.png";
+
+import { useHistory } from "react-router-dom";
 import { useForm, useField } from "react-final-form-hooks";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser } from "../../actions";
 
 import Modals from "./modal/modal";
 
@@ -41,37 +45,54 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const onSubmit = (values, form) => {
-  console.log(values);
-  form.restart();
-};
-const validate = (values) => {
-  const errors = {};
-  if (!values.EmailId) {
-    errors.EmailId = "Required";
-  }
-  if (!values.Password) {
-    errors.Password = "Required";
-  }
-  return errors;
-};
-
 const Authlogin = () => {
-  const { form, handleSubmit } = useForm({
-    onSubmit,
-    validate,
-  });
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const loginerrors = useSelector((state) => state.login.loginerror);
+  const loginstats = useSelector((state) => state.login.loginstatus);
 
   const [login, setLogin] = useState(false);
   const [signup, setSignup] = useState(false);
+
+  useEffect(() => {
+    if (loginstats === "success") {
+      dispatch({ type: "LOGIN_RESET" });
+      history.push("/homepage");
+    }
+    // eslint-disable-next-line
+  }, [loginstats]);
+
+  const onSubmit = async (values, form) => {
+    const email = values.EmailId;
+    const password = values.Password;
+    // eslint-disable-next-line
+    const res = await dispatch(loginUser({ email, password }));
+    form.restart();
+  };
+
+  const validate = (values) => {
+    const errors = {};
+    if (!values.EmailId) {
+      errors.EmailId = "Required";
+    }
+    if (!values.Password) {
+      errors.Password = "Required";
+    }
+    return errors;
+  };
+
+  const { form, handleSubmit, submitting } = useForm({
+    onSubmit,
+    validate,
+  });
 
   const modalClick = (val) => {
     if (val === "login") {
       setLogin(true);
       setSignup(false);
     } else {
-      setLogin(true);
-      setSignup(false);
+      setLogin(false);
+      setSignup(true);
     }
   };
 
@@ -104,6 +125,7 @@ const Authlogin = () => {
             </div>
             <div className="form_inputcont">
               <input
+                type="password"
                 autoComplete="off"
                 placeholder={`Password`}
                 className="mailog_inp"
@@ -114,10 +136,20 @@ const Authlogin = () => {
               )}
             </div>
 
-            <Button variant="contained" className={classes.root} type="submit">
+            <Button
+              variant="contained"
+              className={classes.root}
+              type="submit"
+              disabled={submitting}
+            >
               Log In
             </Button>
           </form>
+        </div>
+        <div className="mainlog_errors">
+          <span className="loginerror">
+            {loginerrors !== null ? loginerrors : null}
+          </span>
         </div>
         <div className="mainlog_adverstise">
           <div className="mainlog_adv">

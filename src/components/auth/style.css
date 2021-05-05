@@ -48,6 +48,13 @@
   font-size: 13px;
 }
 
+/* Errors */
+.mainlog_errors {
+  margin-left: 24px;
+  margin-top: 4px;
+  width: 75%;
+}
+
 /* Inputs */
 
 .mailog_inp {
