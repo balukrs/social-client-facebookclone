@@ -60,3 +60,9 @@ export const userDiscard = () => {
     }
   };
 };
+
+export const postData = (formData) => {
+  return async (dispatch) => {
+    const response = await Api.post("/post", formData);
+  };
+};
