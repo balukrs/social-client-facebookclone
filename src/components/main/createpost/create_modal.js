@@ -13,6 +13,7 @@ const Createmodal = (props) => {
     if (props.status === false) {
       handleClose();
     }
+    // eslint-disable-next-line
   }, [props.status]);
 
   const handleOpen = () => {

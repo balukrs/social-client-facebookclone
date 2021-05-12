@@ -1,5 +1,6 @@
 import Api from "../api/social";
 
+// Register user
 export const registerUser = (formValues) => {
   return async (dispatch) => {
     const response = await Api.post("/register", formValues);
@@ -19,6 +20,7 @@ export const registerUser = (formValues) => {
   };
 };
 
+// Login User
 export const loginUser = (formValues) => {
   return async (dispatch) => {
     const response = await Api.post("/login", formValues, {
@@ -39,6 +41,7 @@ export const loginUser = (formValues) => {
   };
 };
 
+// Login Validation
 export const userFetch = () => {
   return async (dispatch) => {
     const response = await Api.get("/login", {
@@ -47,11 +50,12 @@ export const userFetch = () => {
     if (response.data === "loggedout") {
       dispatch({ type: "USER_LOGGOUT" });
     } else {
-      dispatch({ type: "USER_LOGGIN", payload: response.data.id });
+      dispatch({ type: "USER_LOGGIN", payload: response.data });
     }
   };
 };
 
+// Logginout User
 export const userDiscard = () => {
   return async (dispatch) => {
     const response = await Api.get("/logout", { withCredentials: true });
@@ -61,8 +65,17 @@ export const userDiscard = () => {
   };
 };
 
+// Postings using form-data
 export const postData = (formData) => {
   return async (dispatch) => {
     const response = await Api.post("/post", formData);
+  };
+};
+
+//Fetching all post id's
+export const fetchPost = () => {
+  return async (dispatch) => {
+    const response = await Api.get("/postid");
+    dispatch({ type: "POSTID_FETCH", payload: response.data });
   };
 };

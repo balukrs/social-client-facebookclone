@@ -33,9 +33,8 @@ const useStyles = makeStyles((theme) => ({
   btn: {
     backgroundColor: "#d69824",
     color: "white",
-    width: 400,
-    padding: 20,
-    marginBottom: 20,
+    width: 200,
+    padding: 10,
     "&:hover": {
       backgroundColor: "#f7a305",
     },
@@ -64,6 +63,7 @@ const Createpost = () => {
 
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.user.userid);
+  const userName = useSelector((state) => state.user.username);
 
   const modalClose = () => setModalsts(false);
 
@@ -86,8 +86,6 @@ const Createpost = () => {
   useEffect(() => {
     if (preview) {
       removeRef.current.style.display = "flex";
-    } else {
-      removeRef.current.style.display = "none";
     }
   }, [preview]);
 
@@ -104,12 +102,14 @@ const Createpost = () => {
   };
 
   const removePic = () => {
+    removeRef.current.style.display = "none";
     setFile(null);
     btnRef.current.value = null;
   };
 
   const closeModal = () => {
     setModalsts(false);
+    setFile(null);
   };
 
   // Form
@@ -117,9 +117,13 @@ const Createpost = () => {
   const onSubmit = async (values, form) => {
     const formData = new FormData();
     formData.append("userid", userId);
+    formData.append("username", userName);
     formData.append("post", values.Postdetails);
     formData.append("contentupload", file);
+    // eslint-disable-next-line
     const res = await dispatch(postData(formData));
+    form.restart();
+    closeModal();
   };
 
   const validate = (values) => {
@@ -179,7 +183,6 @@ const Createpost = () => {
                     <input
                       type="file"
                       onChange={fileChange}
-                      className="create_fileupload"
                       ref={btnRef}
                       className="craete_file_input"
                     />

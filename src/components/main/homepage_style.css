@@ -1,14 +1,33 @@
 .home_container {
-  min-width: 750px;
-  height: 100vh;
+  max-width: 900px;
+  min-height: 100vh;
+  overflow: hidden;
 }
-/* Create Post */
-.createpost_cont {
-  margin-left: 2.5rem;
-  margin-top: 2.5rem;
+
+/* Fixed Elements */
+.home_fixed_cont {
   position: fixed;
-  width: 90%;
   top: 0;
-  transform: translate(0, 40px);
-  padding: 20px;
+  left: 0;
+  width: 100%;
+  z-index: 30;
+}
+
+/* Details */
+.home_detail_cont {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+/* Divider */
+.home_divider {
+  background-color: rgb(196, 192, 192);
+  width: 0.5px;
+  height: 650px;
+  position: fixed;
+  right: 0;
+  transform: translateX(-500px);
+  padding: 0.5px;
+  margin-top: 5px;
 }

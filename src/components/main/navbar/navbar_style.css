@@ -6,9 +6,7 @@
   padding: 10px;
   align-items: center;
   justify-content: space-between;
-  position: fixed;
   width: 100%;
-  top: 0;
 }
 .navbar_logo_container {
   display: flex;
@@ -75,18 +73,7 @@
   color: #e0b17a;
 }
 
-@keyframes appear {
-  0% {
-    display: block;
-    opacity: 0;
-  }
-  25% {
-    opacity: 0.3;
-  }
-  50% {
-    opacity: 0.7;
-  }
-  100% {
-    opacity: 0.1;
-  }
+/* Create post button */
+.navbar_createpost_cont {
+  margin-left: 10px;
 }

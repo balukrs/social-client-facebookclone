@@ -6,6 +6,8 @@ import sample from "../../../pictures/landing_image.jpg";
 import { useDispatch } from "react-redux";
 import { userDiscard } from "../../../actions";
 
+import Createpost from "../createpost/createpost";
+
 const Navbar = () => {
   const nav = useRef();
   const dispatch = useDispatch();
@@ -33,7 +35,11 @@ const Navbar = () => {
           <img src={Logo} className="navbar_logo" alt="logo" />
         </div>
         <h1 className="navbar_h1">SocialApp</h1>
+        <div className="navbar_createpost_cont">
+          <Createpost />
+        </div>
       </div>
+
       <div>
         <div className="navbar_dropdown">
           <div

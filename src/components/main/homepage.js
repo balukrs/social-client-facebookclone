@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
 import "./homepage_style.css";
+
 import { useSelector, useDispatch } from "react-redux";
 
 import { userFetch } from "../../actions";
 
 import Navbar from "./navbar/navbar";
-import Createpost from "./createpost/createpost";
+
+import Postdetails from "./postdetails/postdetails";
+import Userdetails from "./userdetails/userdetails";
+// Createpost component is now moved to navbar component
 
 const Homepage = () => {
   const dispatch = useDispatch();
@@ -28,10 +32,12 @@ const Homepage = () => {
 
   return (
     <div className="home_container">
-      <Navbar />
-      <div className="createpost_cont">
-        <Createpost />
+      <div className="home_fixed_cont">
+        <Navbar />
       </div>
+      <Postdetails />
+      <Userdetails />
+      <div className="home_divider"></div>
     </div>
   );
 };

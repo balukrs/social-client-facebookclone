@@ -1,0 +1,19 @@
+.userdetails_cont {
+  position: fixed;
+  transform: translateY(80px);
+  right: 0;
+  width: 400px;
+  margin-right: 80px;
+  min-height: 500px;
+  max-height: fit-content;
+  padding: 10px;
+}
+
+@media screen and (max-width: 1134px) {
+  .userdetails_cont {
+    display: none;
+  }
+  .home_divider {
+    display: none;
+  }
+}
