@@ -1,14 +1,16 @@
-import React, { useState, useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState, useEffect } from "react";
 import Axios from "axios";
 
 import moment from "moment";
+import { Collapse } from "react-collapse";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Avatar from "@material-ui/core/Avatar";
 import Card from "@material-ui/core/Card";
 import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import ExpandLessIcon from "@material-ui/icons/ExpandLess";
+import Commentbox from "./postcomment";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -35,10 +37,9 @@ const Api = Axios.create({
 
 const Postdata = ({ id }) => {
   const classes = useStyles();
-  const anime = require("animejs");
+
   const [post, setPost] = useState(null);
   const [commbox, setCommbox] = useState(false);
-  const commentContRef = useRef();
 
   const dataFetch = async (ID) => {
     const response = await Api.get(`/post/${ID}`);
@@ -51,21 +52,7 @@ const Postdata = ({ id }) => {
     }
   }, [id]);
 
-  const commentExpander = () => {
-    if (commbox === false) {
-      anime({
-        targets: ".post_comment_container",
-        keyframes: [{ height: "0" }, { height: "100%" }],
-        duration: 1000,
-        easing: "easeOutElastic(amplitude, period)",
-        direction: "normal",
-      });
-      setCommbox(true);
-    }
-  };
-
   const postData = () => {
-    console.log(commentContRef.current);
     return (
       <Card key={post._id} className={classes.card}>
         <div className="post_header">
@@ -90,18 +77,18 @@ const Postdata = ({ id }) => {
           <button className="post_likebtn">
             <ThumbUpAltIcon />
           </button>
-          <button className="post_commentsbtn" onClick={commentExpander}>
+          <button
+            className="post_commentsbtn"
+            onClick={() => setCommbox(!commbox)}
+          >
             <span>comment</span>
-            <span>
-              <ExpandMoreIcon />
-            </span>
+            <span>{commbox ? <ExpandLessIcon /> : <ExpandMoreIcon />}</span>
           </button>
         </div>
-        <div className="post_comment_container" ref={commentContRef}>
-          <h1>SAMPLE</h1>
-          <h1>SAMPLE</h1>
-          <h1>SAMPLE</h1>
-          <h1>SAMPLE</h1>
+        <div className="post_comment_container">
+          <Collapse isOpened={commbox}>
+            <Commentbox comm={post.comments} id={post._id} />
+          </Collapse>
         </div>
       </Card>
     );

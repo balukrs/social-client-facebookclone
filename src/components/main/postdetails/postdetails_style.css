@@ -50,24 +50,77 @@
   cursor: pointer;
   border: none;
   font-size: 13px;
+  background-color: #ebeae6;
 }
 .post_comment_container {
-  height: 0;
-  background-color: brown;
+  transition: height 500ms;
 }
 
-/* Comment box animation */
-/* .post_comment_conatiner_forward {
-  animation-name: slider;
-  animation-duration: 0.5s;
-  animation-timing-function: ease-out;
-  animation-fill-mode: forwards;
+/* Comment Box */
+.post_comment_container {
+  box-shadow: inset 0 0 10px #cac8c8;
+  border-radius: 3px;
 }
-@keyframes slider {
+.ReactCollapse--collapse {
+  transition: height 500ms;
+}
+
+/* Comment Cont */
+.comment_cont {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+.comment_header {
+  border-bottom: solid 0.5px rgb(185, 182, 182);
+  margin-bottom: 10px;
+}
+.comment_post {
+  display: flex;
+  margin-bottom: 5px;
+  opacity: 0;
+  animation: appear 0.8s ease forwards;
+}
+.comment_body {
+  margin-left: 4.5px;
+}
+.comment_user {
+  font-weight: 600;
+  font-size: 13.5px;
+}
+.comment_time {
+  margin-left: 10px;
+  font-size: 12px;
+  font-weight: 200;
+}
+.comment_content {
+  font-size: 13.5px;
+}
+
+/* Reply Form */
+.comment_reply {
+  margin-top: 25px;
+}
+.comment_form textarea {
+  width: 98%;
+  padding: 5px;
+  display: block;
+  margin-bottom: 5px;
+  resize: none;
+}
+.comment_form textarea:focus {
+  outline: none;
+}
+.comment_loading {
+  margin-top: 5px;
+}
+
+/* Animations */
+@keyframes appear {
   from {
-    max-height: 0;
+    opacity: 0;
   }
   to {
-    max-height: 100%;
+    opacity: 1;
   }
-} */
+}
