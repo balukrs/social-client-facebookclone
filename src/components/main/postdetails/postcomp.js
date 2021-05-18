@@ -12,6 +12,8 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import Commentbox from "./postcomment";
 
+import { useSelector } from "react-redux";
+
 const useStyles = makeStyles((theme) => ({
   card: {
     backgroundColor: "#ebeae6",
@@ -40,10 +42,33 @@ const Postdata = ({ id }) => {
 
   const [post, setPost] = useState(null);
   const [commbox, setCommbox] = useState(false);
+  const [userImg, setUserimg] = useState(null);
+  const [likelen, setLikelen] = useState(null);
+  const [likestats, setLikestats] = useState("action");
+
+  const currentID = useSelector((state) => state.user.userid);
 
   const dataFetch = async (ID) => {
     const response = await Api.get(`/post/${ID}`);
     setPost(response.data);
+  };
+
+  const imageFetch = async (userid) => {
+    const response = await Api.get(`/profilepic/${userid}`);
+    const Profileimg = response.data.img
+      ? await toBase64(response.data.img.data)
+      : null;
+    setUserimg(Profileimg);
+  };
+
+  const likeFetch = async () => {
+    const response = await Api.post(`/likes/${currentID}/${id}`);
+    setLikelen(response.data.likes);
+    if (response.data.likestatus === "added") {
+      setLikestats("primary");
+    } else if (response.data.likestatus === "removed") {
+      setLikestats("error");
+    }
   };
 
   useEffect(() => {
@@ -52,12 +77,22 @@ const Postdata = ({ id }) => {
     }
   }, [id]);
 
+  useEffect(() => {
+    if (post) {
+      imageFetch(post.userid);
+      setLikelen(post.likes.length);
+    }
+  }, [post]);
+
   const postData = () => {
     return (
       <Card key={post._id} className={classes.card}>
         <div className="post_header">
           <div className="post_avatar">
-            <Avatar aria-label="recipe">A</Avatar>
+            <Avatar
+              alt="Travis Howard"
+              src={`data:image/webp;base64,${userImg}`}
+            />
           </div>
           <div className="post_header_username">
             <h4>{post.username}</h4>
@@ -65,18 +100,24 @@ const Postdata = ({ id }) => {
           </div>
         </div>
         <div>
-          <img
-            alt={"postimg"}
-            src={`data:image/webp;base64,${toBase64(post.contentimg.data)}`}
-          />
+          {post.contentimg ? (
+            <img
+              alt={"postimg"}
+              src={`data:image/webp;base64,${toBase64(post.contentimg.data)}`}
+            />
+          ) : null}
         </div>
         <div className="post_content">
           <span>{post.content}</span>
         </div>
         <div className="post_likesComments">
-          <button className="post_likebtn">
-            <ThumbUpAltIcon />
-          </button>
+          <div className="post_like_cont">
+            <button className="post_likebtn" onClick={() => likeFetch()}>
+              <ThumbUpAltIcon color={likestats} />
+            </button>
+            <span>{likelen}</span>
+          </div>
+
           <button
             className="post_commentsbtn"
             onClick={() => setCommbox(!commbox)}

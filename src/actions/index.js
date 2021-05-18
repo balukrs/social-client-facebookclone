@@ -55,6 +55,24 @@ export const userFetch = () => {
   };
 };
 
+//User image fetch
+export const fetchImage = (id) => {
+  return async (dispatch) => {
+    const response = await Api.get(`/profilepic/${id}`);
+
+    function toBase64(arr) {
+      arr = new Uint8Array(arr);
+      return btoa(
+        arr.reduce((data, byte) => data + String.fromCharCode(byte), "")
+      );
+    }
+    const Profileimg = response.data.img
+      ? await toBase64(response.data.img.data)
+      : null;
+    dispatch({ type: "USER_IMAGE", payload: Profileimg });
+  };
+};
+
 // Logginout User
 export const userDiscard = () => {
   return async (dispatch) => {
@@ -69,6 +87,9 @@ export const userDiscard = () => {
 export const postData = (formData) => {
   return async (dispatch) => {
     const response = await Api.post("/post", formData);
+    if (response.data === "uploaded") {
+      dispatch({ type: "POST_SUCCESS" });
+    }
   };
 };
 
@@ -76,6 +97,15 @@ export const postData = (formData) => {
 export const fetchPost = () => {
   return async (dispatch) => {
     const response = await Api.get("/postid");
-    dispatch({ type: "POSTID_FETCH", payload: response.data });
+    await dispatch({ type: "POSTID_FETCH", payload: response.data });
+    dispatch({ type: "POST_RESET" });
+  };
+};
+
+//Fetching all users
+export const userDetails = () => {
+  return async (dispatch) => {
+    const response = await Api.get("/users");
+    dispatch({ type: "USER_DETAILS", payload: response.data });
   };
 };

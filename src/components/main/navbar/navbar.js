@@ -2,16 +2,41 @@ import React, { useEffect, useRef, useState } from "react";
 import "./navbar_style.css";
 import Logo from "../../../pictures/motivation.png";
 import sample from "../../../pictures/landing_image.jpg";
+import Avatar from "@material-ui/core/Avatar";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { userDiscard } from "../../../actions";
+import { useHistory } from "react-router-dom";
+
+import { userFetch } from "../../../actions";
+import { userDetails } from "../../../actions";
+import { fetchImage } from "../../../actions";
 
 import Createpost from "../createpost/createpost";
 
-const Navbar = () => {
+const Navbar = ({ btnoff }) => {
   const nav = useRef();
+  const history = useHistory();
   const dispatch = useDispatch();
   const [anime, setAnime] = useState(false);
+
+  const userID = useSelector((state) => state.user.userid);
+  const userstats = useSelector((state) => state.user.userstatus);
+  const userimg = useSelector((state) => state.user.userimg);
+
+  useEffect(() => {
+    dispatch(userFetch());
+    dispatch(userDetails());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (userstats === "loggedout") {
+      window.location = "/";
+    }
+    if (userstats === "loggedin") {
+      dispatch(fetchImage(userID));
+    }
+  }, [userstats]);
 
   useEffect(() => {
     if (anime === true) {
@@ -36,7 +61,7 @@ const Navbar = () => {
         </div>
         <h1 className="navbar_h1">SocialApp</h1>
         <div className="navbar_createpost_cont">
-          <Createpost />
+          {!btnoff ? <Createpost /> : null}
         </div>
       </div>
 
@@ -48,7 +73,10 @@ const Navbar = () => {
               setAnime(!anime);
             }}
           >
-            <img src={sample} className="navbar_account_img" alt="avatar" />
+            <Avatar
+              alt="Travis Howard"
+              src={`data:image/webp;base64,${userimg}`}
+            />
           </div>
           <ul
             className="navbar_dropdown_list"
@@ -59,7 +87,7 @@ const Navbar = () => {
           >
             <span className="navbar_extra_triangle"></span>
             <li>Notifications</li>
-            <li>Profile</li>
+            <li onClick={() => history.push("/profile")}>Profile</li>
             <li onClick={() => dispatch(userDiscard())}>Logout</li>
           </ul>
         </div>

@@ -39,8 +39,10 @@ const Commentbox = ({ comm, id }) => {
   const [textval, setTextval] = useState("");
   const [btnstats, setBtnstats] = useState(false);
   const [commen, setCommen] = useState([]);
+  const [el, setEl] = useState(null);
 
   const userName = useSelector((state) => state.user.username);
+  const userId = useSelector((state) => state.user.userid);
 
   useEffect(() => {
     if (comm) {
@@ -48,17 +50,17 @@ const Commentbox = ({ comm, id }) => {
     }
   }, [comm]);
 
+  useEffect(() => {
+    if (commen) {
+      resultfunc();
+    }
+  }, [commen]);
+
   const commentPost = async (formvalue) => {
     const response = await Api.post("/comments", formvalue);
-    if (response.data === "updated") {
-      commentFetch();
+    if (response.data) {
+      setCommen(response.data.comments);
     }
-  };
-
-  const commentFetch = async () => {
-    const response = await Api.get(`/comments/${id}`);
-    setCommen(response.data.comments);
-    setBtnstats(false);
   };
 
   const handleSubmit = (e) => {
@@ -71,39 +73,68 @@ const Commentbox = ({ comm, id }) => {
       id: id,
       comment: {
         username: userName,
+        userid: userId,
         content: textval,
       },
     };
     commentPost(formvalue);
   };
 
-  const commData = () => {
+  function toBase64(arr) {
+    arr = new Uint8Array(arr);
+    return btoa(
+      arr.reduce((data, byte) => data + String.fromCharCode(byte), "")
+    );
+  }
+
+  const imageFetch = async (userid) => {
+    const response = await Api.get(`/profilepic/${userid}`);
+    const Profileimg = response.data.img
+      ? await toBase64(response.data.img.data)
+      : "";
+    return Profileimg;
+  };
+
+  const commData = async () => {
     if (!commen.length) {
       return null;
     }
 
-    return commen.map((comment, index) => {
-      return (
-        <div className="comment_post" key={index}>
-          <div className="comment_avatar">
-            <Avatar variant="square" className={classes.small}>
-              N
-            </Avatar>
-          </div>
-          <div className="comment_body">
-            <div>
-              <span className="comment_user">{comment.username}</span>
-              <span className="comment_time">
-                {timeConv(comment.createdAt)}
-              </span>
+    return await Promise.all(
+      commen.map(async (comment, index) => {
+        const imagedata = await imageFetch(comment.userid);
+
+        return (
+          <div className="comment_post" key={index}>
+            <div className="comment_avatar">
+              <Avatar
+                variant="square"
+                className={classes.small}
+                src={`data:image/webp;base64,${imagedata}`}
+              ></Avatar>
             </div>
-            <div>
-              <span className="comment_content">{comment.content}</span>
+            <div className="comment_body">
+              <div>
+                <span className="comment_user">{comment.username}</span>
+                <span className="comment_time">
+                  {timeConv(comment.createdAt)}
+                </span>
+              </div>
+              <div>
+                <span className="comment_content">{comment.content}</span>
+              </div>
             </div>
           </div>
-        </div>
-      );
-    });
+        );
+      })
+    );
+  };
+
+  const resultfunc = async () => {
+    const result = await commData();
+    setBtnstats(false);
+    setTextval("");
+    setEl(result);
   };
 
   return (
@@ -111,7 +142,7 @@ const Commentbox = ({ comm, id }) => {
       <header className="comment_header">
         <h3>Comments</h3>
       </header>
-      {commData()}
+      {el}
       <footer className="comment_reply">
         <form className="comment_form" onSubmit={handleSubmit}>
           <textarea

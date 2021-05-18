@@ -5,6 +5,8 @@
   left: 0;
   margin-left: 120px;
   padding: 15px;
+  display: flex;
+  flex-direction: column;
 }
 
 /* /Post */
@@ -26,7 +28,7 @@
 .post_content {
   padding: 6px;
   color: rgb(46, 45, 45);
-  background-color: rgb(219, 218, 214);
+  background-color: rgb(214, 214, 211);
   border-radius: 3px;
   width: 98%;
   margin: auto;
@@ -55,7 +57,14 @@
 .post_comment_container {
   transition: height 500ms;
 }
-
+.post_like_cont {
+  display: flex;
+  align-items: center;
+}
+.post_like_cont span {
+  margin-left: 5px;
+  font-weight: 700;
+}
 /* Comment Box */
 .post_comment_container {
   box-shadow: inset 0 0 10px #cac8c8;

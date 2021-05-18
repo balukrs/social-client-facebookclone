@@ -1,0 +1,49 @@
+.profile_menu {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+/* Profile Pic upload */
+.profile_pic_cont {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.profile_pic_preview_cont {
+  margin-left: 20px;
+  transform: translateY(-8px);
+}
+.profile_crop_canvas {
+  display: flex;
+  align-items: center;
+  margin-top: 15px;
+}
+.profilepic_btn_upload {
+  transform: translate(80px, -28px);
+}
+.profile_pic_btn_cont {
+  display: flex;
+}
+.profile_pic_stats_btn {
+  margin-left: 10px;
+  transform: translateY(-6.5px);
+}
+.craete_file_input {
+  opacity: 0;
+}
+
+/* Edit profile */
+
+.edit_cont {
+  min-width: 800px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.edit_sub_cont {
+  display: flex;
+  flex-direction: column;
+}

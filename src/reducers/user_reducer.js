@@ -2,6 +2,7 @@ const INIT_RED = {
   userstatus: null,
   userid: null,
   username: null,
+  userimg: null,
 };
 
 const userReducer = (state = INIT_RED, action) => {
@@ -20,6 +21,8 @@ const userReducer = (state = INIT_RED, action) => {
         userid: null,
         username: null,
       };
+    case "USER_IMAGE":
+      return { ...state, userimg: action.payload };
     default:
       return state;
   }
