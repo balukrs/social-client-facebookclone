@@ -34,7 +34,7 @@ function timeConv(data) {
   return time.calendar();
 }
 const Api = Axios.create({
-  baseURL: "https://socialapp-back.herokuapp.com/social",
+  baseURL: "http://localhost:5000/social",
 });
 
 const Postdata = ({ id }) => {

@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 const Api = Axios.create({
-  baseURL: "https://socialapp-back.herokuapp.com/social",
+  baseURL: "http://localhost:5000/social",
 });
 
 const useStyles = makeStyles((theme) => ({
