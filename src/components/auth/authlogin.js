@@ -67,15 +67,15 @@ const Authlogin = () => {
     // eslint-disable-next-line
   }, [loginstats]);
 
-  useEffect(() => {
-    if (userStats === "loggedin") {
-      history.push("/homepage");
-    }
-  }, [userStats]);
+  // useEffect(() => {
+  //   if (userStats === "loggedin") {
+  //     history.push("/homepage");
+  //   }
+  // }, [userStats]);
 
-  useEffect(() => {
-    dispatch(userFetch());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(userFetch());
+  // }, []);
 
   const onSubmit = async (values, form) => {
     const email = values.EmailId;
