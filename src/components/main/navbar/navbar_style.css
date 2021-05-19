@@ -21,7 +21,10 @@
   margin-left: 5px;
   text-shadow: 1.5px 2.5px 3px rgb(236, 121, 5);
 }
-
+.navbar_logo_main {
+  display: flex;
+  margin-right: 15px;
+}
 /* Dropdown */
 .navbar_dropdown {
   position: relative;
@@ -40,7 +43,7 @@
   background-color: rgba(133, 129, 129, 0.774);
   position: absolute;
   padding: 15px;
-  height: 150px;
+  height: 110px;
   width: 150px;
   top: 1;
   right: 0;

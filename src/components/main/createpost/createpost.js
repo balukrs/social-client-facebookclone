@@ -199,6 +199,7 @@ const Createpost = () => {
                     className="create_img"
                     ref={imageRef}
                     onLoad={resizer}
+                    alt={""}
                   />
                 </div>
                 <div className="create_submit_cont">

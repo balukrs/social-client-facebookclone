@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./navbar_style.css";
 import Logo from "../../../pictures/motivation.png";
-import sample from "../../../pictures/landing_image.jpg";
+
 import Avatar from "@material-ui/core/Avatar";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -36,6 +36,7 @@ const Navbar = ({ btnoff }) => {
     if (userstats === "loggedin") {
       dispatch(fetchImage(userID));
     }
+    // eslint-disable-next-line
   }, [userstats]);
 
   useEffect(() => {
@@ -56,10 +57,15 @@ const Navbar = ({ btnoff }) => {
   return (
     <div className="navbar_container">
       <div className="navbar_logo_container">
-        <div>
+        <div
+          onClick={() => history.push("/homepage")}
+          style={{ cursor: "pointer" }}
+          className="navbar_logo_main"
+        >
           <img src={Logo} className="navbar_logo" alt="logo" />
+          <h1 className="navbar_h1">SocialApp</h1>
         </div>
-        <h1 className="navbar_h1">SocialApp</h1>
+
         <div className="navbar_createpost_cont">
           {!btnoff ? <Createpost /> : null}
         </div>
@@ -86,7 +92,6 @@ const Navbar = ({ btnoff }) => {
             }}
           >
             <span className="navbar_extra_triangle"></span>
-            <li>Notifications</li>
             <li onClick={() => history.push("/profile")}>Profile</li>
             <li onClick={() => dispatch(userDiscard())}>Logout</li>
           </ul>

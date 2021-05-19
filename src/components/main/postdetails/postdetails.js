@@ -13,6 +13,7 @@ const Postdetails = () => {
 
   useEffect(() => {
     dispatFunc();
+    // eslint-disable-next-line
   }, [dispatch, postStatus]);
 
   const Posts = () => {

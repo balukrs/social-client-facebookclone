@@ -4,10 +4,12 @@ import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Logo from "../../pictures/motivation.png";
 
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { useForm, useField } from "react-final-form-hooks";
 import { useDispatch, useSelector } from "react-redux";
+
 import { loginUser } from "../../actions";
+import { userFetch } from "../../actions";
 
 import Modals from "./modal/modal";
 
@@ -48,8 +50,10 @@ const useStyles = makeStyles((theme) => ({
 const Authlogin = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const location = useLocation();
   const loginerrors = useSelector((state) => state.login.loginerror);
   const loginstats = useSelector((state) => state.login.loginstatus);
+  const userStats = useSelector((state) => state.user.userstatus);
 
   const [login, setLogin] = useState(false);
   const [signup, setSignup] = useState(false);
@@ -59,8 +63,19 @@ const Authlogin = () => {
       dispatch({ type: "LOGIN_RESET" });
       history.push("/homepage");
     }
+
     // eslint-disable-next-line
   }, [loginstats]);
+
+  useEffect(() => {
+    if (userStats == "loggedin") {
+      history.push("/homepage");
+    }
+  }, [userStats]);
+
+  useEffect(() => {
+    dispatch(userFetch());
+  }, []);
 
   const onSubmit = async (values, form) => {
     const email = values.EmailId;

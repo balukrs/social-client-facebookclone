@@ -20,6 +20,7 @@ const userReducer = (state = INIT_RED, action) => {
         userstatus: "loggedout",
         userid: null,
         username: null,
+        userimg: null,
       };
     case "USER_IMAGE":
       return { ...state, userimg: action.payload };

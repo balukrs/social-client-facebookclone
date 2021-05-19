@@ -54,6 +54,7 @@ const Commentbox = ({ comm, id }) => {
     if (commen) {
       resultfunc();
     }
+    // eslint-disable-next-line
   }, [commen]);
 
   const commentPost = async (formvalue) => {

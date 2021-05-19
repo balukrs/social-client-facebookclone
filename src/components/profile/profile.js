@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./profile_style.css";
 
 import Navbar from "../main/navbar/navbar";
@@ -9,6 +9,7 @@ import Tab from "@material-ui/core/Tab";
 
 import Profilepic from "./profile_pic";
 import Editprofile from "./edit_password_user";
+import Deletepost from "./delete_post";
 
 const theme = createMuiTheme({
   palette: {
@@ -24,8 +25,6 @@ const Profile = () => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
-  const returnFunc = () => {};
 
   return (
     <div>
@@ -51,6 +50,8 @@ const Profile = () => {
               return <Profilepic />;
             case 1:
               return <Editprofile />;
+            case 2:
+              return <Deletepost />;
             default:
               return null;
           }
