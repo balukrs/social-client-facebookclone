@@ -68,7 +68,7 @@ const Authlogin = () => {
   }, [loginstats]);
 
   useEffect(() => {
-    if (userStats == "loggedin") {
+    if (userStats === "loggedin") {
       history.push("/homepage");
     }
   }, [userStats]);
