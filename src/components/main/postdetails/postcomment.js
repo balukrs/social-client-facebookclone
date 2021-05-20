@@ -6,7 +6,7 @@ import Button from "@material-ui/core/Button";
 import LinearProgress from "@material-ui/core/LinearProgress";
 
 import moment from "moment";
-import Axios from "axios";
+import Api from "../../../api/social";
 
 import { useSelector } from "react-redux";
 
@@ -28,10 +28,6 @@ function timeConv(data) {
   const time = moment(data);
   return time.calendar();
 }
-
-const Api = Axios.create({
-  baseURL: "https://socialapp-back.herokuapp.com/social",
-});
 
 const Commentbox = ({ comm, id }) => {
   const classes = useStyles();

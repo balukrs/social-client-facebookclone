@@ -9,7 +9,7 @@ import { useForm, useField } from "react-final-form-hooks";
 import { useDispatch, useSelector } from "react-redux";
 
 import { loginUser } from "../../actions";
-import { userFetch } from "../../actions";
+import { userDiscard } from "../../actions";
 
 import Modals from "./modal/modal";
 
@@ -67,14 +67,16 @@ const Authlogin = () => {
     // eslint-disable-next-line
   }, [loginstats]);
 
-  // useEffect(() => {
-  //   if (userStats === "loggedin") {
-  //     history.push("/homepage");
-  //   }
-  // }, [userStats]);
+  useEffect(() => {
+    if (userStats === "loggedin") {
+      history.push("/homepage");
+    }
+  }, [userStats]);
 
   // useEffect(() => {
-  //   dispatch(userFetch());
+  //   if (userStats === "loggedout") {
+  //     dispatch(userDiscard());
+  //   }
   // }, []);
 
   const onSubmit = async (values, form) => {

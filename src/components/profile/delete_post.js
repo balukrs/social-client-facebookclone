@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Axios from "axios";
+import Api from "../../api/social";
 import { useSelector } from "react-redux";
 import Button from "@material-ui/core/Button";
 import Avatar from "@material-ui/core/Avatar";
@@ -22,10 +22,6 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-
-const Api = Axios.create({
-  baseURL: "https://socialapp-back.herokuapp.com/social",
-});
 
 function toBase64(arr) {
   arr = new Uint8Array(arr);

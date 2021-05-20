@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Axios from "axios";
+import Api from "../../../api/social";
 
 import moment from "moment";
 import { Collapse } from "react-collapse";
@@ -33,9 +33,6 @@ function timeConv(data) {
   const time = moment(data);
   return time.calendar();
 }
-const Api = Axios.create({
-  baseURL: "https://socialapp-back.herokuapp.com/social",
-});
 
 const Postdata = ({ id }) => {
   const classes = useStyles();

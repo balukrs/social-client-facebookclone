@@ -3,13 +3,9 @@ import "react-image-crop/dist/ReactCrop.css";
 import ReactCrop from "react-image-crop";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
-import Axios from "axios";
+import Api from "../../api/social";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-
-const Api = Axios.create({
-  baseURL: "https://socialapp-back.herokuapp.com/social",
-});
 
 const useStyles = makeStyles((theme) => ({
   btn: {

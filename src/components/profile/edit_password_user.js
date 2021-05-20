@@ -12,7 +12,7 @@ import Snackbar from "@material-ui/core/Snackbar";
 
 import { useSelector, useDispatch } from "react-redux";
 import { userDiscard } from "../../actions";
-import Axios from "axios";
+import Api from "../../api/social";
 
 const theme = createMuiTheme({
   palette: {
@@ -42,10 +42,6 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 10,
   },
 }));
-
-const Api = Axios.create({
-  baseURL: "https://socialapp-back.herokuapp.com/social",
-});
 
 const Editprofile = () => {
   const classes = useStyles();
